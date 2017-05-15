@@ -1,19 +1,21 @@
 import keras.backend as K
 
-from constants import AUDIO_LENGTH
+from constants import *
 from model_data import DataReader
 from models import *
 
 if __name__ == '__main__':
 
     data_reader = DataReader()
-    batch_size = 32
+    batch_size = 32  # TODO: I contacted the authors. what value do they use?
     num_classes = 10
     x = tf.placeholder(tf.float32, shape=[None, AUDIO_LENGTH, 1])
     y = tf.placeholder(tf.int64, [None])
     keep_prob = tf.placeholder(tf.float32)
 
-    logits = m3(x, num_classes=num_classes)
+    logits = m34_res(x, num_classes=num_classes)
+    print_delimiter()
+    print_total_trainable_parameters_count()
 
     cross_entropy = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=y))
     train_step = tf.train.AdamOptimizer().minimize(cross_entropy)

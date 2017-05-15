@@ -4,9 +4,13 @@ from keras.layers.convolutional import Conv1D, MaxPooling1D
 from keras.layers.core import Activation, Flatten, Dense
 from keras.layers.normalization import BatchNormalization
 
+from constants import print_delimiter
+
 
 def global_average_pooling(x, input_dim, output_dim):
     gap = tf.reduce_mean(x, 1)
+    print_delimiter()
+    print('GAP - input_dim = {}, output_dim = {}'.format(input_dim, output_dim))
     with tf.variable_scope('GAP'):
         gap_w = tf.get_variable('W', shape=[input_dim, output_dim], initializer=tf.random_normal_initializer(0., 0.01))
     logits = tf.matmul(gap, gap_w)
@@ -45,20 +49,30 @@ def conv_(x, nb_filters=128, receptive_field=3, strides=1, num_blocks=1, batch_n
                    padding='same',
                    kernel_initializer='glorot_uniform',
                    kernel_regularizer=regularizers.l2(l=0.0001))(x)
+        print_delimiter()
+        print('Conv1D - filters = {}, kernel_size = {}, strides = {}'.format(nb_filters, receptive_field, strides))
         if batch_norm:
             x = BatchNormalization()(x)
+            print_delimiter()
+            print('Batch Normalization')
         if relu:
             x = Activation('relu')(x)
+            print_delimiter()
+            print('ReLU')
     return x
 
 
 def max_pool(x, pool_size=4, strides=None):
+    print_delimiter()
+    print('MaxPooling1D - pool_size = {}, strides = {}'.format(pool_size, strides))
     x = MaxPooling1D(pool_size=pool_size, strides=strides)(x)
     return x
 
 
 def double_conv_res_block(x, conv_pattern):
     # Fig. 1.
+    print_delimiter()
+    print('ResidualBlock')
     res_input = x
     x = conv(x, conv_pattern)
     x = conv(x, conv_pattern, relu=False)
@@ -73,12 +87,15 @@ def double_conv_res_block(x, conv_pattern):
 # TODO: check the order between BatchNormalization, Dropout.
 # TODO: check any ReLU?
 def fc_block(x, keep_prob=0.7):
+    output_units = 1000
+    print_delimiter()
+    print('FC Block - {0} Dropout BN ReLU {0} Dropout BN ReLU'.format(output_units))
     x = Flatten()(x)
-    x = Dense(1000, kernel_initializer='glorot_uniform')(x)
+    x = Dense(output_units, kernel_initializer='glorot_uniform')(x)
     x = tf.nn.dropout(x, keep_prob=keep_prob)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
-    x = Dense(1000, kernel_initializer='glorot_uniform')(x)
+    x = Dense(output_units, kernel_initializer='glorot_uniform')(x)
     x = tf.nn.dropout(x, keep_prob=keep_prob)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)

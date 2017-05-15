@@ -1,23 +1,24 @@
-import tensorflow as tf
 from keras.layers.convolutional import Conv2D, MaxPooling2D
-from keras.layers.core import Dense, Activation, Flatten
-from keras.layers.normalization import BatchNormalization
 
-from model_layers import conv, global_average_pooling, max_pool, double_conv_res_block
+from model_layers import *
 
 
+# TODO I added 1x1 conv to avoid mismatch in the res blocks. I contacted the authors for that.
 def m34_res(x, num_classes=10):
-    x = conv(x, pattern='[80/4, 64]')
+    x = conv(x, pattern='[80/4, 48]')
     x = max_pool(x, pool_size=4)
     for i in range(3):
         x = double_conv_res_block(x, conv_pattern='[3, 48]')
     x = max_pool(x, pool_size=4)
+    x = conv(x, pattern='[1, 96]')  # TODO: added by myself. otherwise shape mismatch
     for i in range(4):
         x = double_conv_res_block(x, conv_pattern='[3, 96]')
     x = max_pool(x, pool_size=4)
+    x = conv(x, pattern='[1, 192]')  # TODO: added by myself. otherwise shape mismatch
     for i in range(6):
         x = double_conv_res_block(x, conv_pattern='[3, 192]')
     x = max_pool(x, pool_size=4)
+    x = conv(x, pattern='[1, 384]')  # TODO: added by myself. otherwise shape mismatch
     for i in range(3):
         x = double_conv_res_block(x, conv_pattern='[3, 384]')
     x = max_pool(x, pool_size=4)
@@ -29,13 +30,13 @@ def m34_res(x, num_classes=10):
 def m18(x, num_classes=10):
     x = conv(x, pattern='[80/4, 64]')
     x = max_pool(x, pool_size=4)
-    x = conv(x, pattern='[3, 64] × 2')
+    x = conv(x, pattern='[3, 64] x 2')
     x = max_pool(x, pool_size=4)
-    x = conv(x, pattern='[3, 128] × 4')
+    x = conv(x, pattern='[3, 128] x 4')
     x = max_pool(x, pool_size=4)
-    x = conv(x, pattern='[3, 256] × 4')
+    x = conv(x, pattern='[3, 256] x 4')
     x = max_pool(x, pool_size=4)
-    x = conv(x, pattern='[3, 512] × 4')
+    x = conv(x, pattern='[3, 512] x 4')
     x = global_average_pooling(x, input_dim=512, output_dim=num_classes)
     x = Dense(num_classes)(x)
     return x
@@ -44,13 +45,13 @@ def m18(x, num_classes=10):
 def m11(x, num_classes=10):
     x = conv(x, pattern='[80/4, 64]')
     x = max_pool(x, pool_size=4)
-    x = conv(x, pattern='[3, 64] × 2')
+    x = conv(x, pattern='[3, 64] x 2')
     x = max_pool(x, pool_size=4)
-    x = conv(x, pattern='[3, 128] × 2')
+    x = conv(x, pattern='[3, 128] x 2')
     x = max_pool(x, pool_size=4)
-    x = conv(x, pattern='[3, 256] × 2')
+    x = conv(x, pattern='[3, 256] x 2')
     x = max_pool(x, pool_size=4)
-    x = conv(x, pattern='[3, 512] × 2')
+    x = conv(x, pattern='[3, 512] x 2')
     x = global_average_pooling(x, input_dim=512, output_dim=num_classes)
     x = Dense(num_classes)(x)
     return x
@@ -100,6 +101,7 @@ def m3(x, num_classes=10):
     x = conv(x, pattern='[3, 256]')
     x = max_pool(x, pool_size=4)
     x = global_average_pooling(x, 256, num_classes)
+    # x = fc_block(x)
     x = Dense(num_classes)(x)
     return x
 
