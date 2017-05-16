@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
 
     num_classes = 10
-    model = m5(num_classes=num_classes)
+    model = m11(num_classes=num_classes)
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])

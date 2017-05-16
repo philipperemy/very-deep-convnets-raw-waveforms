@@ -6,7 +6,10 @@ from constants import *
 from model_layers import *
 
 
+# For m34 Residual, use RepeatVector. Or tensorflow_backend.repeat
+
 def m3(num_classes=10):
+    print('Using Model M3')
     m = Sequential()
     m.add(Conv1D(256,
                  input_shape=[AUDIO_LENGTH, 1],
@@ -33,6 +36,7 @@ def m3(num_classes=10):
 
 
 def m5(num_classes=10):
+    print('Using Model M5')
     m = Sequential()
     m.add(Conv1D(128,
                  input_shape=[AUDIO_LENGTH, 1],
@@ -77,6 +81,7 @@ def m5(num_classes=10):
 
 
 def m11(num_classes=10):
+    print('Using Model M11')
     m = Sequential()
     m.add(Conv1D(64,
                  input_shape=[AUDIO_LENGTH, 1],
