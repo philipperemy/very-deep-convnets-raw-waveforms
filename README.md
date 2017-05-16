@@ -20,6 +20,6 @@ Tensorflow 1.0 implementation of the paper: https://arxiv.org/pdf/1610.00087.pdf
 
 
 <div align="center">
-  <b>M5 model - best accuracy: 0.0.755</b><br>
+  <b>M5 model - best accuracy: 0.755</b><br>
   <img src="assets/veusz_m5.png" width="600"><br><br>
 </div>
