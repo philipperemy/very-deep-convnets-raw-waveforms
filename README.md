@@ -4,7 +4,13 @@ Tensorflow 1.0 implementation of the paper: https://arxiv.org/pdf/1610.00087.pdf
 *From Stanford University and US Bosch*
 
 ```
-M3 has been implemented so far!
+[x] M3 has been implemented so far!
+[ ] M3 Big
+[ ] M5
+[ ] M3 Big
+[ ] M11
+[ ] M18
+[ ] M34-res
 ```
 
 <div align="center">
