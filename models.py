@@ -6,8 +6,6 @@ from constants import *
 from model_layers import *
 
 
-# For m34 Residual, use RepeatVector. Or tensorflow_backend.repeat
-
 def m3(num_classes=10):
     print('Using Model M3')
     m = Sequential()
@@ -29,6 +27,7 @@ def m3(num_classes=10):
                  kernel_regularizer=regularizers.l2(l=0.0001)))
     m.add(BatchNormalization())
     m.add(Activation('relu'))
+
     m.add(MaxPooling1D(pool_size=4, strides=None))
     m.add(Lambda(lambda x: K.mean(x, axis=1)))
     m.add(Dense(num_classes, activation='softmax'))
@@ -125,6 +124,7 @@ def m11(num_classes=10):
                      kernel_regularizer=regularizers.l2(l=0.0001)))
         m.add(BatchNormalization())
         m.add(Activation('relu'))
+    m.add(MaxPooling1D(pool_size=4, strides=None))
 
     for i in range(2):
         m.add(Conv1D(512,
@@ -136,7 +136,6 @@ def m11(num_classes=10):
         m.add(BatchNormalization())
         m.add(Activation('relu'))
 
-    m.add(MaxPooling1D(pool_size=4, strides=None))
     m.add(Lambda(lambda x: K.mean(x, axis=1)))
     m.add(Dense(num_classes, activation='softmax'))
     return m
@@ -187,6 +186,7 @@ def m18(num_classes=10):
                      kernel_regularizer=regularizers.l2(l=0.0001)))
         m.add(BatchNormalization())
         m.add(Activation('relu'))
+    m.add(MaxPooling1D(pool_size=4, strides=None))
 
     for i in range(4):
         m.add(Conv1D(512,
@@ -198,7 +198,6 @@ def m18(num_classes=10):
         m.add(BatchNormalization())
         m.add(Activation('relu'))
 
-    m.add(MaxPooling1D(pool_size=4, strides=None))
     m.add(Lambda(lambda x: K.mean(x, axis=1)))
     m.add(Dense(num_classes, activation='softmax'))
     return m
