@@ -22,16 +22,34 @@ class DataReader:
     def next_batch_test(self, batch_size):
         return DataReader._next_batch(batch_size, self.test_files)
 
+    def train_files_count(self):
+        return len(self.train_files)
+
+    def test_files_count(self):
+        return len(self.test_files)
+
+    def get_all_training_data(self):
+        return DataReader._get_data(self.train_files)
+
+    def get_all_testing_data(self):
+        return DataReader._get_data(self.test_files)
+
+    @staticmethod
+    def _get_data(file_list, progress_bar=False):
+        def load_into(_filename, _x, _y):
+            with open(_filename, 'rb') as f:
+                audio_element = pickle.load(f)
+                _x.append(audio_element['audio'])
+                _y.append(int(audio_element['class_id']))
+
+        x, y = [], []
+        for filename in file_list:
+            load_into(filename, x, y)
+        return np.array(x), np.array(y)
+
     @staticmethod
     def _next_batch(batch_size, file_list):
-        x, y = [], []
-        for i in range(batch_size):
-            filename = choice(file_list)
-            with open(filename, 'rb') as f:
-                audio_element = pickle.load(f)
-                x.append(audio_element['audio'])
-                y.append(int(audio_element['class_id']))
-        return np.array(x), np.array(y)
+        return DataReader._get_data([choice(file_list) for _ in range(batch_size)])
 
 
 def read_audio_from_filename(filename, target_sr):

@@ -47,9 +47,10 @@ def convert_data():
     for i, wav_filename in enumerate(iglob(os.path.join(DATA_AUDIO_DIR, '**/**.wav'), recursive=True)):
         class_id = extract_class_id(wav_filename)
         audio_buf = read_audio_from_filename(wav_filename, target_sr=TARGET_SR)
-
+        # normalize mean 0, variance 1
+        audio_buf = (audio_buf - np.mean(audio_buf)) / np.std(audio_buf)
         original_length = len(audio_buf)
-        print(i, wav_filename, original_length)
+        print(i, wav_filename, original_length, np.round(np.mean(audio_buf), 4), np.std(audio_buf))
         if original_length < AUDIO_LENGTH:
             audio_buf = np.concatenate((audio_buf, np.zeros(shape=(AUDIO_LENGTH - original_length, 1))))
             print('PAD New length =', len(audio_buf))

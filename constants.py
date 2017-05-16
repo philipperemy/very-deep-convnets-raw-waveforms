@@ -1,6 +1,7 @@
 import os
 
-DATA_AUDIO_DIR = '/Users/philipperemy/Downloads/UrbanSound8K/audio'
+DATA_AUDIO_DIR = '/home/philippe/UrbanSound8K/audio'
+# DATA_AUDIO_DIR = '/Users/philipperemy/Downloads/UrbanSound8K/audio'
 TARGET_SR = 8000
 OUTPUT_DIR = '/tmp/very-deep-conv-nets-raw-waveforms'
 OUTPUT_DIR_TRAIN = os.path.join(OUTPUT_DIR, 'train')
