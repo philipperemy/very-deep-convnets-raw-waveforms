@@ -1,5 +1,3 @@
-from collections import deque
-
 from keras.callbacks import Callback
 from keras.callbacks import ReduceLROnPlateau
 from keras.utils.np_utils import to_categorical
@@ -8,13 +6,10 @@ from file_logger import FileLogger
 from model_data import DataReader
 from models import *
 
-def deq():
-    return deque(maxlen=100)
-
-
 if __name__ == '__main__':
     file_logger = FileLogger('out.tsv', ['step', 'tr_loss', 'te_loss',
                                          'tr_acc', 'te_acc'])
+
 
     class MetricsHistory(Callback):
         def on_epoch_end(self, epoch, logs={}):
@@ -26,7 +21,7 @@ if __name__ == '__main__':
 
 
     num_classes = 10
-    model = m3(num_classes=num_classes)
+    model = m5(num_classes=num_classes)
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
