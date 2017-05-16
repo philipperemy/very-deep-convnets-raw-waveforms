@@ -143,6 +143,7 @@ def m11(num_classes=10):
 
 
 def m18(num_classes=10):
+    print('Using Model M18')
     m = Sequential()
     m.add(Conv1D(64,
                  input_shape=[AUDIO_LENGTH, 1],
