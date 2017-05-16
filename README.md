@@ -5,12 +5,10 @@ Tensorflow 1.0 implementation of the paper: https://arxiv.org/pdf/1610.00087.pdf
 
 ```
 [x] M3 has been implemented so far!
-[ ] M3 Big
 [x] M5
-[ ] M5 Big
 [x] M11
-[ ] M18
-[ ] M34 Res
+[x] M18
+[x] M34 Res
 ```
 
 <div align="center">
