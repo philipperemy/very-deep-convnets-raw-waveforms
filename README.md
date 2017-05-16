@@ -6,7 +6,7 @@ Tensorflow 1.0 implementation of the paper: https://arxiv.org/pdf/1610.00087.pdf
 ```
 [x] M3 has been implemented so far!
 [ ] M3 Big
-[ ] M5
+[x] M5
 [ ] M5 Big
 [ ] M11
 [ ] M18
@@ -16,4 +16,10 @@ Tensorflow 1.0 implementation of the paper: https://arxiv.org/pdf/1610.00087.pdf
 <div align="center">
   <b>M3 model - best accuracy: 0.648</b><br>
   <img src="assets/m3.png" width="600"><br><br>
+</div>
+
+
+<div align="center">
+  <b>M5 model - best accuracy: 0.755</b><br>
+  <img src="assets/veusz_m5.png" width="600"><br><br>
 </div>
