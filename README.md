@@ -8,7 +8,7 @@ Tensorflow 1.0 implementation of the paper: https://arxiv.org/pdf/1610.00087.pdf
 [ ] M3 Big
 [x] M5
 [ ] M5 Big
-[ ] M11
+[x] M11
 [ ] M18
 [ ] M34 Res
 ```
@@ -22,4 +22,9 @@ Tensorflow 1.0 implementation of the paper: https://arxiv.org/pdf/1610.00087.pdf
 <div align="center">
   <b>M5 model - best accuracy: 0.755</b><br>
   <img src="assets/veusz_m5.png" width="600"><br><br>
+</div>
+
+<div align="center">
+  <b>M11 model - best accuracy: 0.758</b><br>
+  <img src="assets/veusz_m11.png" width="600"><br><br>
 </div>
