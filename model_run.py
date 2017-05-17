@@ -1,27 +1,48 @@
+import sys
+
 from keras.callbacks import Callback
 from keras.callbacks import ReduceLROnPlateau
 from keras.utils.np_utils import to_categorical
 
 from file_logger import FileLogger
 from model_data import DataReader
+from model_resnet import resnet_34
 from models import *
 
+
+class MetricsHistory(Callback):
+    def on_epoch_end(self, epoch, logs={}):
+        file_logger.write([str(epoch),
+                           str(logs['loss']),
+                           str(logs['val_loss']),
+                           str(logs['acc']),
+                           str(logs['val_acc'])])
+
+
 if __name__ == '__main__':
-    file_logger = FileLogger('out.tsv', ['step', 'tr_loss', 'te_loss',
-                                         'tr_acc', 'te_acc'])
-
-
-    class MetricsHistory(Callback):
-        def on_epoch_end(self, epoch, logs={}):
-            file_logger.write([str(epoch),
-                               str(logs['loss']),
-                               str(logs['val_loss']),
-                               str(logs['acc']),
-                               str(logs['val_acc'])])
-
-
+    model_name = 'm3'
+    args = sys.argv
+    if len(args) == 2:
+        model_name = args[1].lower()
+    print('Model selected:', model_name)
+    file_logger = FileLogger('out_{}.tsv'.format(model_name), ['step', 'tr_loss', 'te_loss',
+                                                               'tr_acc', 'te_acc'])
+    model = None
     num_classes = 10
-    model = m18(num_classes=num_classes)
+    if model_name == 'm3':
+        model = m3(num_classes=num_classes)
+    elif model_name == 'm5':
+        model = m5(num_classes=num_classes)
+    elif model_name == 'm11':
+        model = m11(num_classes=num_classes)
+    elif model_name == 'm18':
+        model = m18(num_classes=num_classes)
+    elif model_name == 'm34':
+        model = resnet_34(num_classes=num_classes)
+
+    if model is None:
+        exit('Please choose a valid model: [m3, m5, m11, m18, m34]')
+
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
