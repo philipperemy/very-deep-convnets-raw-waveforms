@@ -14,6 +14,9 @@ Keras (Tensorflow) implementation of the paper: https://arxiv.org/pdf/1610.00087
 ```
 
 ## How to re-run the experiments?
+
+Dataset can be downloaded here: http://urbansounddataset.weebly.com/urbansound8k.html
+
 ```
 git clone https://github.com/philipperemy/very-deep-convnets-raw-waveforms.git
 cd very-deep-convnets-raw-waveforms
