@@ -32,7 +32,7 @@ def m3(num_classes=10):
     m.add(Activation('relu'))
 
     m.add(MaxPooling1D(pool_size=4, strides=None))
-    m.add(Lambda(lambda x: K.mean(x, axis=1)))
+    m.add(Lambda(lambda x: K.mean(x, axis=1))) # Same as GAP for 1D Conv Layer
     m.add(Dense(num_classes, activation='softmax'))
     return m
 
@@ -77,7 +77,7 @@ def m5(num_classes=10):
     m.add(BatchNormalization())
     m.add(Activation('relu'))
     m.add(MaxPooling1D(pool_size=4, strides=None))
-    m.add(Lambda(lambda x: K.mean(x, axis=1)))
+    m.add(Lambda(lambda x: K.mean(x, axis=1))) # Same as GAP for 1D Conv Layer
     m.add(Dense(num_classes, activation='softmax'))
     return m
 
@@ -139,7 +139,7 @@ def m11(num_classes=10):
         m.add(BatchNormalization())
         m.add(Activation('relu'))
 
-    m.add(Lambda(lambda x: K.mean(x, axis=1)))
+    m.add(Lambda(lambda x: K.mean(x, axis=1))) # Same as GAP for 1D Conv Layer
     m.add(Dense(num_classes, activation='softmax'))
     return m
 
@@ -228,6 +228,6 @@ def m18(num_classes=10):
         m.add(BatchNormalization())
         m.add(Activation('relu'))
 
-    m.add(Lambda(lambda x: K.mean(x, axis=1)))
+    m.add(Lambda(lambda x: K.mean(x, axis=1))) # Same as GAP for 1D Conv Layer
     m.add(Dense(num_classes, activation='softmax'))
     return m
