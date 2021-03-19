@@ -1,5 +1,5 @@
 # Very Deep Convolutional Networks For Raw Waveforms
-Keras (Tensorflow) implementation of the paper: https://arxiv.org/pdf/1610.00087.pdf
+Keras (Tensorflow) implementation of the [[paper](https://arxiv.org/pdf/1610.00087)]
 
 ## Notes:
 - Going really deep does not seem to help much on this dataset. We clearly overfit very easily. Adding more regularization might help. I haven't tried to use the FC layers (though it has been implemented).
